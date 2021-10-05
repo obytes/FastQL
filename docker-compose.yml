@@ -1,0 +1,39 @@
+version: "3.3"
+services:
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=fastql
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+  queue:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SECRET_COOKIE"
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbit log_levels [{connection,error}]"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  backend:
+    depends_on:
+      - db
+      - queue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - /bin/bash
+      - -c
+      - |
+        alembic upgrade head
+        uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - SECRET_KEY=GITHUBACTIONKEY
+      - QUEUE=queue
+    ports:
+      - "8000:8000"
+    image: fastql

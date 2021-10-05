@@ -1,0 +1,54 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type blog {
+  id: ID!
+  title: String!
+  description: String!
+  completed: Boolean!
+  ownerId: ID!
+}
+
+type blogResult {
+  errors: [String]
+  blog: blog
+}
+
+type blogsResult {
+  errors: [String]
+  blogs: [blog]
+}
+
+type InsertResult {
+  errors: [String]
+  id: ID
+}
+
+type TokenResult {
+  errors: [String]
+  token: String
+}
+
+type Query {
+  blogs: blogsResult!
+  blog(blogId: ID!): blogResult!
+}
+
+type Mutation {
+  createblog(title: String!, description: String!): InsertResult!
+  createUser(email: String!, password: String!): InsertResult!
+  createToken(email: String!, password: String!): TokenResult!
+}
+
+type Subscription {
+  reviewblog(token: String!): InsertResult!
+}
