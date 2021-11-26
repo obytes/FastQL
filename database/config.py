@@ -5,9 +5,9 @@ Key = config("SECRET_KEY")
 queue = config("QUEUE")
 
 
-class Settings((BaseSettings)):
+class Settings(((BaseSettings))):
     SECRET_KEY = Key
-    ACCESS_TOKEN_EXPIRE_SECONDS: int = 60 * 60 * 24
+    ACCESS_TOKEN_EXPIRE_SECONDS: int = 60**2 * 24
     SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@db/fastql"
     SQLALCHEMY_DATABASE_SSL = False
     SQLALCHEMY_DATABASE_MIN_POOL = 1

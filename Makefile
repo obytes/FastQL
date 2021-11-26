@@ -10,7 +10,7 @@ help:
 	@echo "    make clean-test"
 
 test:
-	docker-compose run --rm backend pytest
+	docker-compose run --rm backend pytest --cov-report=html
 
 start:
 	docker-compose up -d
