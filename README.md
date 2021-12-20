@@ -78,8 +78,10 @@ __Note__: Running the test on the Container CLI `pytest` or when you use the com
 ### Environment variables
 
 ```sh
-SECRET_KEY= #secret key for JWT token
-QUEUE= #rabbitMQ queue name
+SECRET_KEY #Secret Key
+QUEUE # RabbitMQ Link
+DATABASE_URL # Database URL
+ACCESS_TOKEN_EXPIRE_SECONDS # Access Token Expire Seconds
 ```
 
 > change all the environment variables in the `.env.example` and don't forget to rename it to `.env`.

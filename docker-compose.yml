@@ -5,9 +5,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=fastql
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
   queue:
     image: rabbitmq:3-management
     environment:
@@ -33,7 +33,9 @@ services:
         uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     environment:
       - SECRET_KEY=GITHUBACTIONKEY
-      - QUEUE=queue
+      - QUEUE=amqp://guest:guest@rabbit:5672
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - ACCESS_TOKEN_EXPIRE_SECONDS=3600
     ports:
       - "8000:8000"
     image: fastql

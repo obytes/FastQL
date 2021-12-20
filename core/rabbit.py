@@ -8,7 +8,7 @@ from database import config
 
 async def produceblog(blog_id: int):
     connection = await aio_pika.connect(
-        f"amqp://guest:guest@{config.queue}/", loop=asyncio.get_event_loop()
+        f"{config.queue}", loop=asyncio.get_event_loop()
     )
 
     async with connection:
