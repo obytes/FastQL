@@ -13,9 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: pull latest
-        run: make pull
+        run: docker-compose pull
       - name: Build image
-        run: make build
+        run: docker-compose build
       - name: Test image
         run: make test
       - name: Test code format -- pre-commit
