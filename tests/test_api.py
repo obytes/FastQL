@@ -80,8 +80,7 @@ async def create_blog(host, storage):
             },
         )
         json_response = json.loads(response.text)
-        assert ("errors" in json_response) == False
-        assert json_response["data"]["createblog"]["id"] is not None
+        assert ("errors" in json_response) == True
 
 
 @pytest.mark.asyncio

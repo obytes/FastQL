@@ -9,22 +9,17 @@ help:
 	@echo "    make clean"
 	@echo "    make clean-test"
 
-test:
-	docker-compose run --rm backend pytest
-
-start:
+up:
 	docker-compose up -d
 
 down:
 	docker-compose down
 
-pull:
-	docker-compose pull db
-	docker-compose pull queue
-	docker-compose pull backend
-
 build:
 	docker-compose build
+
+bash:
+	docker-compose run --rm backend bash
 
 lint:
 	docker-compose run --rm backend pre-commit run --all-files

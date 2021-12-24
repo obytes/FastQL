@@ -1,14 +1,13 @@
 from decouple import config
 from pydantic import BaseSettings
 
-Key = config("SECRET_KEY")
 queue = config("QUEUE")
 
 
-class Settings((BaseSettings)):
-    SECRET_KEY = Key
-    ACCESS_TOKEN_EXPIRE_SECONDS: int = 60 * 60 * 24
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@db/fastql"
+class Settings(((BaseSettings))):
+    SECRET_KEY = config("SECRET_KEY")
+    ACCESS_TOKEN_EXPIRE_SECONDS: int = config("ACCESS_TOKEN_EXPIRE_SECONDS", cast=int)
+    SQLALCHEMY_DATABASE_URI = config("DATABASE_URL")
     SQLALCHEMY_DATABASE_SSL = False
     SQLALCHEMY_DATABASE_MIN_POOL = 1
     SQLALCHEMY_DATABASE_MAX_POOL = 20
