@@ -9,9 +9,6 @@ help:
 	@echo "    make clean"
 	@echo "    make clean-test"
 
-test:
-	docker-compose run --rm backend pytest
-
 up:
 	docker-compose up -d
 
@@ -23,6 +20,7 @@ build:
 
 bash:
 	docker-compose run --rm backend bash
+
 lint:
 	docker-compose run --rm backend pre-commit run --all-files
 

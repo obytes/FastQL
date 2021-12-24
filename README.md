@@ -73,7 +73,9 @@ $ make build
 $ make start
 ```
 
-__Note__: Running the test on the Container CLI `pytest` or when you use the command `make start` the container will be started and the tests will be run before the Uvicorn server is started.
+### Testing
+
+While i use `HTTPX` an HTTP client for Python 3, to test the API, most of the tests are using a live log thats why need before to run a server using `uvicorn` and migrate the database, then you will have the ability to run the tests. To have a clean environment, recommended to use Docker for that, when you start the containers try to open the application container and then run `pytest` to test the API.
 
 ### Environment variables
 
