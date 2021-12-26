@@ -1,7 +1,11 @@
+import asyncio
 import json
+from threading import Timer
 
 import httpx
 import pytest
+from ariadne.asgi import GQL_CONNECTION_INIT, GQL_START
+from websockets import connect
 
 my_storage = {}
 
@@ -81,8 +85,45 @@ async def create_blog(host, storage):
         )
         json_response = json.loads(response.text)
         assert ("errors" in json_response) == True
+        assert json_response["data"]["createblog"]["id"] is not None
 
 
 @pytest.mark.asyncio
 async def test_create_blog(server, host, storage):
     await create_blog(host, storage)
+
+
+@pytest.mark.asyncio
+async def test_subscription(server, host, storage):
+    query = """
+        subscription reviewblog($token: String!) {
+            reviewblog(token: $token) {
+                errors
+                id
+            }
+        }
+    """
+    variables = {"token": f'Bearer {storage["token"]}'}
+    ws = await connect(f"ws://{host}/", subprotocols=["graphql-ws"])
+    await ws.send(json.dumps({"type": GQL_CONNECTION_INIT}))
+    await ws.send(
+        json.dumps(
+            {"type": GQL_START, "payload": {"query": query, "variables": variables},}
+        )
+    )
+    received = await ws.recv()
+    assert received == '{"type": "connection_ack"}'
+
+    def delay_create_blog(server, host):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(create_blog(server, host))
+
+    timer = Timer(1.0, delay_create_blog, (server, host, storage))
+    timer.start()
+
+    received = await ws.recv()
+    await ws.close()
+    json_response = json.loads(received)
+    assert ("errors" in json_response) == False
+    assert json_response["payload"]["data"]["reviewblog"]["id"] is not None
