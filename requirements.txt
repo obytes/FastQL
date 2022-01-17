@@ -23,7 +23,7 @@ databases==0.5.3
 debugpy==1.5.1
 distlib==0.3.3
 ecdsa==0.17.0
-fastapi==0.70.0
+fastapi==0.72.0
 filelock==3.4.0
 frozenlist==1.2.0
 graphql-core==3.1.6
