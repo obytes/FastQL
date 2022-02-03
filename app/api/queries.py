@@ -2,8 +2,8 @@ from typing import Optional
 
 from ariadne import QueryType, convert_kwargs_to_snake_case
 
-from core import crud
-from schemas.error import MyGraphQLError
+from app.core import crud
+from app.schemas.error import MyGraphQLError
 
 
 @convert_kwargs_to_snake_case

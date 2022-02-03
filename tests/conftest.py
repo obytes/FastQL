@@ -5,7 +5,6 @@ from multiprocessing import Process
 
 import pytest
 import uvicorn
-
 from database import data
 from main import app
 

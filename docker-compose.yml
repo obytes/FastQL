@@ -4,10 +4,25 @@ services:
     image: postgres:12
     ports:
       - "5432:5432"
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
     environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    networks:
+      - default
+    depends_on:
+      - db
+    environment:
+      - PGADMIN_DEFAULT_EMAIL= Obytes@localhost.com
+      - PGADMIN_DEFAULT_PASSWORD= postgres
+    ports:
+      - "80:80"
   queue:
     image: rabbitmq:3-management
     environment:
@@ -18,6 +33,14 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  flower:
+    image: mher/flower
+    networks:
+      - default
+    environment:
+      - FLOWER_BASIC_AUTH=username:password
+    command:
+      - "--broker=amqp://guest:guest@queue:5672/"
   backend:
     depends_on:
       - db
@@ -31,11 +54,8 @@ services:
       - |
         alembic upgrade head
         uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    environment:
-      - SECRET_KEY=GITHUBACTIONKEY
-      - QUEUE=amqp://guest:guest@rabbit:5672
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-      - ACCESS_TOKEN_EXPIRE_SECONDS=3600
+    env_file:
+      - docker-compose.env
     ports:
       - "8000:8000"
     image: fastql

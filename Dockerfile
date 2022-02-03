@@ -1,19 +1,25 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+WORKDIR /app/
 
-RUN apt update && apt upgrade -y
+# Install Poetry
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
 
-RUN apt install -y -q build-essential python3-pip python3-dev
-RUN pip3 install -U pip setuptools wheel
-RUN pip3 install gunicorn uvloop httptools
+# Copy poetry.lock* in case it doesn't exist in the repo
+COPY ./app/pyproject.toml ./app/poetry.lock* /app/
 
-COPY . /app/
+# Allow installing dev dependencies to run tests
+ARG INSTALL_DEV=false
+RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; else poetry install --no-root --no-dev ; fi"
 
-RUN pip install -r requirements.txt
+# For development, Jupyter remote kernel, Hydrogen
+# Using inside the container:
+# jupyter lab --ip=0.0.0.0 --allow-root --NotebookApp.custom_display_url=http://127.0.0.1:8888
+ARG INSTALL_JUPYTER=false
+RUN bash -c "if [ $INSTALL_JUPYTER == 'true' ] ; then pip install jupyterlab ; fi"
 
-ENV ACCESS_LOG=${ACCESS_LOG:-/proc/1/fd/1}
-ENV ERROR_LOG=${ERROR_LOG:-/proc/1/fd/2}
-
-EXPOSE 8000 8000
+COPY ./app /app
+ENV PYTHONPATH=/app

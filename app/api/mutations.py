@@ -2,10 +2,10 @@ import datetime
 
 from ariadne import MutationType, convert_kwargs_to_snake_case
 
-from core import crud, rabbit
-from database import config, data
-from schemas import security
-from schemas.error import MyGraphQLError
+from app.core import crud, rabbit
+from app.database import config, data
+from app.schemas import security
+from app.schemas.error import MyGraphQLError
 
 
 @convert_kwargs_to_snake_case

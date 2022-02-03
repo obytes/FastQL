@@ -7,9 +7,9 @@ from fastapi import security
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from core import crud
-from database.config import settings
-from schemas.error import MyGraphQLError
+from app.core import crud
+from app.database.config import settings
+from app.schemas.error import MyGraphQLError
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
