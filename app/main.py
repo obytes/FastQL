@@ -11,10 +11,10 @@ from ariadne.asgi import GraphQL
 from fastapi import FastAPI
 from graphql.error.graphql_error import GraphQLError
 
-from api.mutations import mutation
-from api.queries import query
-from api.subscriptions import subscription
-from database import data
+from app.api.mutations import mutation
+from app.api.queries import query
+from app.api.subscriptions import subscription
+from app.database import data
 
 app = FastAPI(
     title="FastQL",

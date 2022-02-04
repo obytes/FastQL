@@ -1,7 +1,7 @@
 import databases
 import sqlalchemy as db
 
-from database.config import settings
+from app.database.config import settings
 
 database = databases.Database(
     settings.SQLALCHEMY_DATABASE_URI,

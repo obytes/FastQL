@@ -3,7 +3,7 @@ from asyncio.exceptions import CancelledError
 
 import aio_pika
 
-from database import config
+from app.database import config
 
 
 async def produceblog(blog_id: int):
@@ -23,7 +23,7 @@ async def produceblog(blog_id: int):
 
 async def consumeblog():
     connection = await aio_pika.connect(
-        f"amqp://guest:guest@{config.queue}/", loop=asyncio.get_event_loop()
+        f"{config.queue}", loop=asyncio.get_event_loop()
     )
 
     queue_name = "consumer"

@@ -1,7 +1,7 @@
 from typing import Dict, Optional
 
-from database.data import blog, database, users
-from schemas.error import MyGraphQLError
+from app.database.data import blog, database, users
+from app.schemas.error import MyGraphQLError
 
 
 async def get_user_by_email(email: str) -> Optional[Dict]:

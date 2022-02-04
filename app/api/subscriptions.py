@@ -1,9 +1,9 @@
 from ariadne import SubscriptionType, convert_kwargs_to_snake_case
 from graphql.type import GraphQLResolveInfo
 
-from core import rabbit
-from schemas import security
-from schemas.error import MyGraphQLError
+from app.core import rabbit
+from app.schemas import security
+from app.schemas.error import MyGraphQLError
 
 subscription = SubscriptionType()
 

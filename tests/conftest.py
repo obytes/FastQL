@@ -6,8 +6,8 @@ from multiprocessing import Process
 import pytest
 import uvicorn
 
-from database import data
-from main import app
+from app.database import data
+from app.main import app
 
 
 def run_server():

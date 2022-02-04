@@ -18,11 +18,8 @@ down:
 build:
 	docker-compose build
 
-bash:
-	docker-compose run --rm backend bash
-
-lint:
-	docker-compose run --rm backend pre-commit run --all-files
+test:
+	docker-compose up -d && docker-compose run --rm fastql bash -c "pytest"
 
 clean:
 	find . -name '*.pyc' -exec rm -f {} +
