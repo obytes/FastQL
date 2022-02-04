@@ -22,7 +22,10 @@ bash:
 	docker-compose run --rm fastql bash -c "pytest"
 
 lint:
-	docker-compose run --rm fastql bash scripts/lint.sh
+	docker-compose run --rm fastql pre-commit run --all-files
+
+test:
+	docker-compose run --rm fastql pytest
 
 clean:
 	find . -name '*.pyc' -exec rm -f {} +
