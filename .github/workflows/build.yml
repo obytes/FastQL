@@ -16,7 +16,5 @@ jobs:
         run: docker-compose pull
       - name: Build image
         run: docker-compose build
-      - name: lint/format
-        run: make lint
       - name: Test
         run: make test
