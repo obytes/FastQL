@@ -65,18 +65,6 @@ ENTRYPOINT /docker-entrypoint.sh $0 $@
 CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "app.main:app"]
 
 
-# 'lint' stage runs black and isort
-# running in check mode means build will fail if any linting errors occur
-FROM development AS lint
-RUN poetry run pre-commit run pre-commit run --all-files
-CMD ["tail", "-f", "/dev/null"]
-
-# 'test' stage runs our unit tests with pytest and
-# coverage.  Build will fail if test coverage is under 95%
-FROM development AS test
-RUN coverage run --rcfile ./pyproject.toml -m pytest ./tests
-RUN coverage report --fail-under 95
-
 # 'production' stage uses the clean 'python-base' stage and copyies
 # in only our runtime deps that were installed in the 'builder-base'
 FROM python-base as production
