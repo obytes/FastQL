@@ -19,10 +19,10 @@ build:
 	docker-compose build
 
 bash:
-	docker-compose run --rm backend bash
+	docker-compose run --rm fastql bash -c "pytest"
 
 lint:
-	docker-compose run --rm backend pre-commit run --all-files
+	docker-compose run --rm fastql bash scripts/lint.sh
 
 clean:
 	find . -name '*.pyc' -exec rm -f {} +

@@ -98,14 +98,14 @@ trio = ["trio (>=0.16)"]
 
 [[package]]
 name = "ariadne"
-version = "0.14.1"
+version = "0.14.0"
 description = "Ariadne is a Python library for implementing GraphQL servers."
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-graphql-core = ">=3.1.0,<3.2"
+graphql-core = ">=3.1.0"
 starlette = "<0.18"
 typing-extensions = ">=3.6.0"
 
@@ -389,7 +389,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "graphql-core"
-version = "3.1.7"
+version = "3.2.0"
 description = "GraphQL implementation for Python, a port of GraphQL.js, the JavaScript reference implementation for GraphQL."
 category = "main"
 optional = false
@@ -1132,8 +1132,8 @@ anyio = [
     {file = "anyio-3.5.0.tar.gz", hash = "sha256:a0aeffe2fb1fdf374a8e4b471444f0f3ac4fb9f5a5b542b48824475e0042a5a6"},
 ]
 ariadne = [
-    {file = "ariadne-0.14.1-py3-none-any.whl", hash = "sha256:b8acf98424dfcedc6d17336656dfe59bd8f1fa2e18e319557c00cdb864477d71"},
-    {file = "ariadne-0.14.1.tar.gz", hash = "sha256:38b9919f60d7eadca57488bd444ac96071a9e9724f2ca8a10ac47e1723ef831d"},
+    {file = "ariadne-0.14.0-py3-none-any.whl", hash = "sha256:427d3cbbf5c54975181d38ee1563dc3523aa5fc6dccf65a32c5ef5f3aabe2646"},
+    {file = "ariadne-0.14.0.tar.gz", hash = "sha256:861a3ef9860573518a712e20be64f5644e840b55947942abefbba0eba10ef3a1"},
 ]
 asgiref = [
     {file = "asgiref-3.5.0-py3-none-any.whl", hash = "sha256:88d59c13d634dcffe0510be048210188edd79aeccb6a6c9028cdad6f31d730a9"},
@@ -1381,8 +1381,8 @@ frozenlist = [
     {file = "frozenlist-1.3.0.tar.gz", hash = "sha256:ce6f2ba0edb7b0c1d8976565298ad2deba6f8064d2bebb6ffce2ca896eb35b0b"},
 ]
 graphql-core = [
-    {file = "graphql-core-3.1.7.tar.gz", hash = "sha256:62ec192150ccecd9a18cfb79e3e72eb7d1fd68fb594ef19c40099b6deec8ef0c"},
-    {file = "graphql_core-3.1.7-py3-none-any.whl", hash = "sha256:9b460f60320be01c7f3b1766cf3e406933003008055079b9d983b8f3988f4400"},
+    {file = "graphql-core-3.2.0.tar.gz", hash = "sha256:86e2a0be008bfde19ef78388de8a725a1d942a9190ca431c24a60837973803ce"},
+    {file = "graphql_core-3.2.0-py3-none-any.whl", hash = "sha256:0dda7e63676f119bb3d814621190fedad72fda07a8e9ab780bedd9f1957c6dc6"},
 ]
 greenlet = [
     {file = "greenlet-1.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:58df5c2a0e293bf665a51f8a100d3e9956febfbf1d9aaf8c0677cf70218910c6"},

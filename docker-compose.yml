@@ -1,28 +1,16 @@
 version: "3.3"
 services:
-  db:
+  localhost:
+    restart: always
     image: postgres:12
     ports:
       - "5432:5432"
-    volumes:
-      - app-db-data:/var/lib/postgresql/data/pgdata
     environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_DB=postgres
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_DB=FastQL
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  pgadmin:
-    image: dpage/pgadmin4
-    networks:
-      - default
-    depends_on:
-      - db
-    environment:
-      - PGADMIN_DEFAULT_EMAIL= Obytes@localhost.com
-      - PGADMIN_DEFAULT_PASSWORD= postgres
-    ports:
-      - "80:80"
   queue:
     image: rabbitmq:3-management
     environment:
@@ -33,29 +21,19 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  flower:
-    image: mher/flower
-    networks:
-      - default
-    environment:
-      - FLOWER_BASIC_AUTH=username:password
-    command:
-      - "--broker=amqp://guest:guest@queue:5672/"
-  backend:
-    depends_on:
-      - db
-      - queue
+
+  fastql:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     command:
       - /bin/bash
       - -c
       - |
         alembic upgrade head
-        uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - queue
+      - localhost
     env_file:
       - docker-compose.env
-    ports:
-      - "8000:8000"
-    image: fastql
