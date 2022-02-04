@@ -1,12 +1,14 @@
+# FastQL - FastAPI GraphQL Playground 🔧
+
 ![fastql](.github/header.svg)
 
-# FastQL - FastAPI GraphQL Playground
-
-Generate a FullStack playground using FastAPI and GraphQL and Ariadne :rocket:.
+<p align="center">
+    <em>Generate a FullStack playground using FastAPI and GraphQL and Ariadne ⚡</em>
+</p>
 
 This Repository is based on this Article [Getting started with GraphQL in Python with FastAPI and Ariadne](https://www.obytes.com/blog/getting-started-with-graphql-in-python-with-fastapi-and-ariadne), Read Article to know how to use it.
 
-## Overview
+## Overview 📌
 
 - FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.
 - GraphQL used to create a schema to describe all the possible data that clients can query through that service. A GraphQL schema is made up of object types, which define which kind of object you can request and what fields it has.
@@ -14,7 +16,9 @@ This Repository is based on this Article [Getting started with GraphQL in Python
 
 ## Features
 
-- Full **Docker** integration (Docker based).
+- Full Docker integration (Docker based).
+- Docker Compose integration and optimization for local development.
+- Production ready Python web server using Uvicorn and Gunicorn.
 - **GraphQL** playground based on Graphene and Ariadne.
 - **Docker Compose** integration and optimization for local development.
 - **Production ready** Python web server using Uvicorn.
@@ -27,11 +31,6 @@ This Repository is based on this Article [Getting started with GraphQL in Python
 
 ## Getting Started
 
-### Prerequisites
-
-- Python 3.8.6 or higher.
-- Docker.
-
 ### Project setup
 
 ```sh
@@ -40,21 +39,6 @@ $ git clone https://github.com/obytes/fastql.git
 
 # move to the project folder
 $ cd fastql
-```
-
-### Creating virtual environment
-
-- Create a virtual environment using virtualenv.
-
-```shell
-# creating virtual environment
-$ virtualenv venv
-
-# activate virtual environment
-$ source venv/bin/activate
-
-# install all dependencies
-$ pip install -r requirements.txt
 ```
 
 ## Running the Docker Container
@@ -76,36 +60,6 @@ $ make start
 ### Testing
 
 While i use `HTTPX` an HTTP client for Python 3, to test the API, most of the tests are using a live log thats why need before to run a server using `uvicorn` and migrate the database, then you will have the ability to run the tests. To have a clean environment, recommended to use Docker for that, when you start the containers try to open the application container and then run `pytest` to test the API.
-
-### Environment variables
-
-```sh
-SECRET_KEY #Secret Key
-QUEUE # RabbitMQ Link
-DATABASE_URL # Database URL
-ACCESS_TOKEN_EXPIRE_SECONDS # Access Token Expire Seconds
-```
-
-> change all the environment variables in the `.env.example` and don't forget to rename it to `.env`.
-
-## Preconfigured Packages
-
-Includes preconfigured packages to kick start FastQL by just setting appropriate configuration.
-
-| Package                                                      | Usage                                                            |
-| ------------------------------------------------------------ | ---------------------------------------------------------------- |
-| [FastAPI](https://fastapi.tiangolo.com/)                    | FastAPI is a modern, fast (high-performance), web framework for developing APIs with Python 3.6+ based on standard Python type hints. |
-| [GraphQL](https://graphql.org/)                             | GraphQL used to create a schema to describe all the possible data that clients can query through that service. A GraphQL schema is made up of object types, which define which kind of object you can request and what fields it has. |
-| [Ariadne](https://ariadnegraphql.org/)                       | Ariadne is a Python library for implementing GraphQL servers using schema-first approach. |
-
-## Contributing
-
-- If you have any questions or suggestions, please open an issue or create a pull request.
-- If you are a contributor, please check out:
-  - Is your pull request or issue relate with FastAPI?
-  - Is your pull request or issue relate with GraphQL?
-  - And make sure you take a look at the schema of the GraphQL playground. [schema.graphql](graphql/schema.graphql)
-  - Also for People who gonna add a new features or fix somethings please make sure that its build on Docker.
 
 ## License
 
